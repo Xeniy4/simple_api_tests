@@ -3,7 +3,7 @@ from http.client import responses
 
 import requests
 from jsonschema.validators import validate
-from schemas import post_create_user, post_register_user, post_register_user_400
+from schemas import post_create_user, post_register_user, post_register_user_400, post_register_user_unsuccessful
 
 base_url = "https://reqres.in"
 
@@ -24,6 +24,11 @@ body_register = {
     "email": "eve.holt@reqres.in",
     "password": "pistol"
 }
+
+body_register_unsuccessful = {
+    "password": "pistol"
+}
+
 
 def test_post_create():
     response = requests.post(base_url + endpoint_create, data=body_create)
@@ -47,3 +52,10 @@ def test_post_register_negative():
     response_body = response.json()
     validate(response_body, post_register_user_400)
 
+
+def test_post_register_miss_email_negative():
+    response = requests.post(base_url + endpoint_register, data=post_register_user_unsuccessful)
+    assert response.status_code == 400
+    assert response.json()["error"] == "Missing email or username"
+    response_body = response.json()
+    validate(response_body, body_register_unsuccessful)

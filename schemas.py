@@ -126,3 +126,16 @@ put_update_user = {
     "updatedAt"
   ]
 }
+
+post_register_user_unsuccessful = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "error"
+  ]
+}
