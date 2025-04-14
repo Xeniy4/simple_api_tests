@@ -19,5 +19,8 @@ def test_put_user():
     response_body = response.json()
     validate(response_body, put_update_user)
 
+def test_put_user_negative():
+    pass
+
 
 
